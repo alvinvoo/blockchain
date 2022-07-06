@@ -35,6 +35,7 @@ class MiningServer:
         self.status_listener = StatusListener(status_listener_port, self.shutdown_event, self._on_new_status)
 
         crypto = Crypto()
+        # generate a private RSA key
         key = crypto.get_key(KEY_NAME) or crypto.generate_key(KEY_NAME)
         self.work_queue = Queue()
         difficulty = config.get('difficulty')

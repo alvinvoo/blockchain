@@ -1,6 +1,7 @@
 from blockchain.common.utils import text_to_bytes, bytes_to_text
 from blockchain.common.hash import hash
 from blockchain.common.config import config
+from Crypto.Signature import pkcs1_15
 
 class Key:
     K = ''
@@ -18,10 +19,16 @@ class Key:
         return hash(data)
 
     def sign(self, unsigned_data):
-        return self.key.sign(self.__prepare_data_for_signing(unsigned_data), Key.K)[0]
+        signature = pkcs1_15.new(self.key).sign(self.__prepare_data_for_signing(unsigned_data))
+        return signature.decode('latin_1')
 
     def verify(self, unsigned_data, signature):
-        return self.key.verify(self.__prepare_data_for_signing(unsigned_data), (signature, Key.K))
+        try:
+            signature = signature.encode('latin_1')
+            pkcs1_15.new(self.key).verify(self.__prepare_data_for_signing(unsigned_data), signature)
+            return True
+        except ValueError as e:
+            return False
 
     def get_public_key(self):
         return bytes_to_text(self.key.publickey().exportKey(self.key_format.upper()))

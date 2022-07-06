@@ -2,7 +2,7 @@ from blockchain.common.blockchain import Blockchain
 from blockchain.common.block import Block
 from blockchain.common.transaction import Transaction
 
-import json
+import json, pprint
 
 def blockchain_decode(blockchain_json):
     blockchain_dict = json.loads(blockchain_json)

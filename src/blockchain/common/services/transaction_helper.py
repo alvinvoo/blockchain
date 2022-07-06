@@ -1,5 +1,6 @@
 from blockchain.common.transaction import Transaction
 from blockchain.common.hash import hash_string_to_hex
+
 import time
 
 def build_transaction(from_address, amount, to_address, key):

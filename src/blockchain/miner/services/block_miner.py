@@ -10,6 +10,8 @@ from blockchain.common.services.transaction_helper import build_transaction
 SERVICE_NAME = 'Miner'
 STOP_WORKING = None
 
+import json
+
 class BlockMiner(Thread):
     def __init__(self, key, work_queue, difficulty, block_reward, block_reward_from_address, shutdown_event,
                  stop_mining_event, on_new_block):
@@ -87,7 +89,7 @@ class BlockMiner(Thread):
         while not self.shutdown_event.is_set() and not self.stop_mining_event.is_set():
             block.nonce = nonce
 
-            if block.is_mined():
+            if block.is_mined():  # this line
                 return block
 
             nonce += 1
