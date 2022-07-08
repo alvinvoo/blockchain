@@ -7,6 +7,7 @@ import logging
 from threading import Lock
 
 class BlockchainLoader:
+    # to load the blockchain.json
     lock = Lock()
 
     def __init__(self, location = None):

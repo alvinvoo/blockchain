@@ -35,6 +35,7 @@ class ListAddressesCommand:
         for address in addresses:
             totals[address] = 0
 
+        # method within method, defined as callback function for UnconfirmedPaymentsLoaders
         def update_totals(unconfirmed_payments):
             for payment in unconfirmed_payments.payments.values():
                 if payment.from_address in addresses:
